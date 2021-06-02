@@ -38,9 +38,17 @@ Several functions also require the Windows/Office low-level tools in the
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+The function `aeq_mort` quickly generates AEQ’d mortality values for
+Chinook.
 
 ``` r
 library(framr)
-## basic example code
+
+m_hcff <- aeq_mort(
+  db = "path/to/ChinookFRAM.mdb",
+  runs = 201, #defaults to all RunIDs
+  stocks = 31:32, #defaults to all StockIDS 
+  drop_t1 = T, #defaults to TRUE for "fishing year" t2:t4
+  sum_ages = T #defaults to FALSE for disaggregated returned object
+  )
 ```
