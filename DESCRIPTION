@@ -9,6 +9,9 @@ Authors@R:
            comment = c(ORCID = "0000-0002-3655-5206"))
 Description: Assorted functions associated with FRAM.
 License: MIT + file LICENSE
+Imports:
+    DBI, odbc,
+    dplyr, magrittr, tidyr
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
