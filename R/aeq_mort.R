@@ -42,7 +42,7 @@ aeq_mort <- function(db, runs = NULL, stocks = NULL, drop_t1 = T, sum_ages = F){
   #now execute and bring into memory
   m <- m %>%
     dplyr::left_join(x = .,
-      y = dplyr::tbl(db_con, "RunID") %>% dplyr::select(RunID, RunYear, BasePeriodID),
+      y = dplyr::tbl(db_con, "RunID") %>% dplyr::select(RunID, RunYear, RunName, BasePeriodID),
       by = "RunID") %>%
     dplyr::left_join(x = .,
       y = dplyr::tbl(db_con, "AEQ"),
@@ -76,14 +76,14 @@ aeq_mort <- function(db, runs = NULL, stocks = NULL, drop_t1 = T, sum_ages = F){
       mort_aeq_msf = MSFLandedCatch + MSFNonRetention + MSFShaker + MSFDropOff,
       mort_aeq_tot = mort_aeq_ns + mort_aeq_msf
     ) %>%
-    dplyr::select(BasePeriodID, RunID, RunYear,
+    dplyr::select(BasePeriodID, RunID, RunYear, RunName,
            FisheryID, FisheryName, TimeStep, StockID, StockName, Age,
            dplyr::all_of(cols_to_aeq), dplyr::starts_with("mort_aeq"))
 
   #aggregate across ages per stock, timestep, fishery and run/year
   if(sum_ages){
     m <- m %>%
-      dplyr::group_by(BasePeriodID, RunID, RunYear, FisheryID, FisheryName, TimeStep, StockID, StockName) %>%
+      dplyr::group_by(BasePeriodID, RunID, RunYear, RunName, FisheryID, FisheryName, TimeStep, StockID, StockName) %>%
       dplyr::summarise(dplyr::across(c(dplyr::all_of(cols_to_aeq), dplyr::starts_with("mort_aeq")), sum, na.rm = T), .groups = "drop")
   }
 
