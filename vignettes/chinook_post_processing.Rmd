@@ -1,0 +1,67 @@
+---
+title: "Chinook FRAM Post-processing"
+output: rmarkdown::html_vignette
+editor_options: 
+  chunk_output_type: console
+vignette: >
+  %\VignetteIndexEntry{Chinook Post-processing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+The `framr` package expedites Chinook FRAM post-processing tasks with `framr::sps` and `framr::ayock_split`.
+
+Assuming the package and dependencies are installed (see [Installation](https://framverse.github.io/framr/)), then begin by loading the functions.
+
+```{r setup}
+library(framr)
+```
+
+# `sps`
+
+The `sps()` function uses R and the `RDCOMClient` library to manipulate existing Excel files - no actual calculations are performed.
+
+It is important to note that the TAMM(s) should already have the appropriate "starting block" values on the *SPS Abundance Iterations* sheet.
+
+The function expects a single argument consisting of a file path or character vector of paths for the TAMMs in which SPS iterations are to be performed.
+
+It is preferable to provide full file paths to reduce confusion, though relative paths *could* work if the directory with the target TAMMs is the current working directory.
+
+Matching a regular expression within a target directory is a convenient way to build the input file paths for multiple TAMMs.
+
+Running the function should result in Excel opening and "flickering" through the desired files; nothing is returned on completion.
+
+```{r sps}
+dir_tamms <- "path/to/tamms/of/interest"
+
+tamms <- list.files(dir_tamms, pattern = "year_or_some_file_name_REGEX.xlsx", full.names = T)
+
+sps(tamm_file_paths = tamms)
+```
+
+While the `RDCOMClient package` is maintained, it will be inefficient to replicate the Chinook TAMM sheet "SPS Abundance Iterations" functionality in R, particularly if TAMM2FRAM progresses.
+
+
+# `ayock_split`
+
+In addition to TAMM file paths, the `ayock_split()` function to perform "North/South Ayock Splits" requires a *Mortality* table from a Chinook FRAM project database. This path can be declared globally and then passed into the function.
+
+The function extracts and summarizes the Chinook FRAM timestep 3 AEQ mortalities of HC FF in NT A12 sport, moving the NS and MSF components into the appropriate TAMM sheets & cells.
+
+```{r ayock}
+db <- "O:/chin_2021/Chinook_NOF_2021_FRAM_Database.mdb"
+
+ayock_split(db = db, tamm_file_paths = tamms)
+```
+
+The function reads the *RunName* string(s) written by FRAM into the "TAMX!B2" cell on the files of interest, and then uses these values to get the associated *RunID* values. These are used to filter the *Mortality* table (in addition to hard-coded stock, fishery and timestep conditions).
+
+Again, successful completion does not return anything to the R session, although a tibble of metadata and values is printed to the console.
