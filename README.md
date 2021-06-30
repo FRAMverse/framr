@@ -30,9 +30,12 @@ devtools::install_github("FRAMverse/framr")
 ```
 
 Several functions also require the Windows/Office low-level tools in the
-`RDCOMClient` package, which (as of 2021-06-02) can be installed with:
+`RDCOMClient` package, which (as of 2021-06-30) can be installed with:
 
 ``` r
+devtools::install_github("omegahat/RDCOMClient") #worked with 4.1.0
+
+##no longer working?
 #install.packages("RDCOMClient", repos = "http://www.omegahat.net/R")
 ```
 
