@@ -2,6 +2,7 @@
 
 export(aeq_mort)
 export(ayock_split)
+export(rep_ocean_opt)
 export(sps)
 import(RDCOMClient)
 importFrom(magrittr,"%>%")
