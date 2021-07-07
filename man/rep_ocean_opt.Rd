@@ -23,6 +23,3 @@ avoiding possibly slow rewrite of entire FisheryScalers
 in a project mdb with many runs. Also left as single pairwise RunIDs
 and fixed FisheryIDs rather than passing as args.
 }
-\examples{
-
-}
