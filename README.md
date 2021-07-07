@@ -30,7 +30,7 @@ devtools::install_github("FRAMverse/framr")
 ```
 
 Several functions also require the Windows/Office low-level tools in the
-`RDCOMClient` package, which (as of 2021-06-30) can be installed with:
+`RDCOMClient` package, which (as of 2021-07-07) can be installed with:
 
 ``` r
 devtools::install_github("omegahat/RDCOMClient") #worked with 4.1.0
@@ -39,7 +39,7 @@ devtools::install_github("omegahat/RDCOMClient") #worked with 4.1.0
 #install.packages("RDCOMClient", repos = "http://www.omegahat.net/R")
 ```
 
-## Example
+## Examples
 
 The function `aeq_mort` quickly generates AEQ’d mortality values for
 Chinook.
@@ -55,3 +55,9 @@ m_hcff <- aeq_mort(
   sum_ages = T #defaults to FALSE for disaggregated returned object
   )
 ```
+
+The functions `ayock_split` and `sps` perform Chinook post-processing
+tasks, altering TAMM file values.
+
+The functions `rep_ocean_opt` and `update_2s` perform Chinook database
+manipulation tasks.

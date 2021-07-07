@@ -44,8 +44,7 @@ devtools::install_github("omegahat/RDCOMClient") #worked with 4.1.0
 
 ```
 
-
-## Example
+## Examples
 
 The function `aeq_mort` quickly generates AEQ'd mortality values for Chinook. 
 
@@ -61,3 +60,7 @@ m_hcff <- aeq_mort(
   )
 
 ```
+
+The functions `ayock_split` and `sps` perform Chinook post-processing tasks, altering TAMM file values.
+
+The functions `rep_ocean_opt` and `update_2s` perform Chinook database manipulation tasks.

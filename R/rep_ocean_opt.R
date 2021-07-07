@@ -13,8 +13,6 @@
 #'
 #' @return Nothing, but database tables are altered.
 #'
-#' @examples
-#'
 rep_ocean_opt <- function(db, run_from, run_to){
 
   #filter condition below, in addition to 17 in t2&3
