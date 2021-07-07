@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   chinook_post_processing: chinook_post_processing.html
-last_built: 2021-06-30T23:14Z
+last_built: 2021-07-07T19:03Z
 urls:
   reference: https://framverse.github.io/framr/reference
   article: https://framverse.github.io/framr/articles

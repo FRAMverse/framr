@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">framr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
       </span>
     </div>
 
@@ -92,16 +92,16 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"FRAMverse/framr"</span><span class="op">)</span></code></pre></div>
-<p>Several functions also require the Windows/Office low-level tools in the <code>RDCOMClient</code> package, which (as of 2021-06-30) can be installed with:</p>
+<p>Several functions also require the Windows/Office low-level tools in the <code>RDCOMClient</code> package, which (as of 2021-07-07) can be installed with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"omegahat/RDCOMClient"</span><span class="op">)</span> <span class="co">#worked with 4.1.0</span>
 
 <span class="co">##no longer working?</span>
 <span class="co">#install.packages("RDCOMClient", repos = "http://www.omegahat.net/R")</span></code></pre></div>
 </div>
-<div id="example" class="section level2">
+<div id="examples" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<a href="#examples" class="anchor"></a>Examples</h2>
 <p>The function <code>aeq_mort</code> quickly generates AEQ’d mortality values for Chinook.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FRAMverse/framr">framr</a></span><span class="op">)</span>
@@ -113,6 +113,8 @@
   drop_t1 <span class="op">=</span> <span class="cn">T</span>, <span class="co">#defaults to TRUE for "fishing year" t2:t4</span>
   sum_ages <span class="op">=</span> <span class="cn">T</span> <span class="co">#defaults to FALSE for disaggregated returned object</span>
   <span class="op">)</span></code></pre></div>
+<p>The functions <code>ayock_split</code> and <code>sps</code> perform Chinook post-processing tasks, altering TAMM file values.</p>
+<p>The functions <code>rep_ocean_opt</code> and <code>update_2s</code> perform Chinook database manipulation tasks.</p>
 </div>
 </div>
   </div>
