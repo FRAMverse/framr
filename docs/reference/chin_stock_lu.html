@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • framr</title>
+<title>Lookup of Chinook FRAM stocks. — chin_stock_lu • framr</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,11 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Lookup of Chinook FRAM stocks. — chin_stock_lu" />
+<meta property="og:description" content="Containing BackwardsFRAM and 'forward' StockIDs.
+The BackwardsFRAM table contains additional rows
+of summed marked and unmarked per-stock; these are
+NA for forward fields." />
 
 
 
@@ -58,7 +62,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -117,72 +121,56 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Lookup of Chinook FRAM stocks.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/FRAMverse/framr/blob/master/R/data-chin_stock_lu.R'><code>R/data-chin_stock_lu.R</code></a></small>
+    <div class="hidden name"><code>chin_stock_lu.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Containing BackwardsFRAM and 'forward' StockIDs.
+The BackwardsFRAM table contains additional rows
+of summed marked and unmarked per-stock; these are
+NA for forward fields.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='va'>chin_stock_lu</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="aeq_mort.html">aeq_mort()</a></code> </p>
-        </td>
-        <td><p>Extract AEQ mortality from Chinook FRAM database</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ayock_split.html">ayock_split()</a></code> </p>
-        </td>
-        <td><p>Convenience function to perform the "Ayock Splits"</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="chin_stock_lu.html">chin_stock_lu</a></code> </p>
-        </td>
-        <td><p>Lookup of Chinook FRAM stocks.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rep_ocean_opt.html">rep_ocean_opt()</a></code> </p>
-        </td>
-        <td><p>Convenience function to replicate PFMC fishery inputs across FRAM RunIDs</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sps.html">sps()</a></code> </p>
-        </td>
-        <td><p>Convenience function to perform in-workbook SPS iterations</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="update_2s.html">update_2s()</a></code> </p>
-        </td>
-        <td><p>Convenience function to update age 2 recruit scalers given forecast 2s</p></td>
-      </tr>
-    </tbody>
-    </table>
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>data frame (tbl_df) with 116 rows and 4 cols:</p><dl>
+<dt>bkfram_id</dt><dd><p>numeric BKFRAM ID</p></dd>
+<dt>StockID</dt><dd><p>numeric forward FRAM stock ID</p></dd>
+<dt>StockName</dt><dd><p>character forward FRAM stock name</p></dd>
+<dt>StockLongName</dt><dd><p>character forward FRAM long name</p></dd>
+
+</dl>
+
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p>R7.1 Chinook FRAM project database tables 'Stock'
+and 'BackwardsFRAM', with derivation in chin_valid_2020.Rmd
+from FRAMEscapeV2 sheets in ChinRSScalers and Valid2018 workbooks</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>chin_stock_lu</span> |&gt; <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>StockID</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 78 x 4</span>
+#&gt;    bkfram_id StockID StockName   StockLongName                   
+#&gt;        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                           
+#&gt; <span style='color: #BCBCBC;'> 1</span>         2       1 U-NkSm FF   UnMarked Nooksack/Samish Fall   
+#&gt; <span style='color: #BCBCBC;'> 2</span>         3       2 M-NkSm FF   Marked Nooksack/Samish Fall     
+#&gt; <span style='color: #BCBCBC;'> 3</span>         5       3 U-NK SP Nat UnMarked Nooksack Spr Natural   
+#&gt; <span style='color: #BCBCBC;'> 4</span>         6       4 M-NK Sp Hat Marked Nooksack Spr Hatchery    
+#&gt; <span style='color: #BCBCBC;'> 5</span>         7       5 U-NK Sp Hat UnMarked Nooksack Spr Hatchery  
+#&gt; <span style='color: #BCBCBC;'> 6</span>         8       6 M-NK Sp Nat Marked Nooksack Spr Natural     
+#&gt; <span style='color: #BCBCBC;'> 7</span>        10       7 U-Skag FF   UnMarked Skagit Summer/Fall Fing
+#&gt; <span style='color: #BCBCBC;'> 8</span>        11       8 M-Skag FF   Marked Skagit Summer/Fall Fing  
+#&gt; <span style='color: #BCBCBC;'> 9</span>        13       9 U-SkagFYr   UnMarked Skagit Summer/Fall Year
+#&gt; <span style='color: #BCBCBC;'>10</span>        14      10 M-SkagFYr   Marked Skagit Summer/Fall Year  
+#&gt; <span style='color: #949494;'># ... with 68 more rows</span></div></pre>
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
