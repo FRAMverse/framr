@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">framr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
       </span>
     </div>
 
@@ -54,6 +54,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/chinook_lookup_creation.html">Chinook lookup creation</a>
+    </li>
+    <li>
       <a href="articles/chinook_post_processing.html">Chinook FRAM Post-processing</a>
     </li>
   </ul>
@@ -91,10 +94,14 @@
 <p>You can install the development version from <a href="https://github.com/">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"FRAMverse/framr"</span><span class="op">)</span></code></pre></div>
-<p>Several functions also require the Windows/Office low-level tools in the <code>RDCOMClient</code> package, which (as of 2021-07-07) can be installed with:</p>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"FRAMverse/framr"</span><span class="op">)</span></code></pre></div>
+<p>Several functions also require the Windows/Office low-level tools in the <code>RDCOMClient</code> package, which (as of 2021-07-19) can be installed with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"omegahat/RDCOMClient"</span><span class="op">)</span> <span class="co">#worked with 4.1.0</span>
+<code class="sourceCode R"><span class="co">#worked with 4.1.0 to get to ver 0.95-0</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"BSchamberger/RDCOMClient"</span><span class="op">)</span>
+
+<span class="co">## compiled but fatal errors when running 4.1.0</span>
+<span class="co">#devtools::install_github("omegahat/RDCOMClient")</span>
 
 <span class="co">##no longer working?</span>
 <span class="co">#install.packages("RDCOMClient", repos = "http://www.omegahat.net/R")</span></code></pre></div>

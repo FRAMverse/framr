@@ -10,7 +10,10 @@
     <loc>https://framverse.github.io/framr/reference/ayock_split.html</loc>
   </url>
   <url>
-    <loc>https://framverse.github.io/framr/reference/chin_stock_lu.html</loc>
+    <loc>https://framverse.github.io/framr/reference/lu_chin_fishery.html</loc>
+  </url>
+  <url>
+    <loc>https://framverse.github.io/framr/reference/lu_chin_stock.html</loc>
   </url>
   <url>
     <loc>https://framverse.github.io/framr/reference/rep_ocean_opt.html</loc>
@@ -20,6 +23,9 @@
   </url>
   <url>
     <loc>https://framverse.github.io/framr/reference/update_2s.html</loc>
+  </url>
+  <url>
+    <loc>https://framverse.github.io/framr/articles/chinook_lookup_creation.html</loc>
   </url>
   <url>
     <loc>https://framverse.github.io/framr/articles/chinook_post_processing.html</loc>
