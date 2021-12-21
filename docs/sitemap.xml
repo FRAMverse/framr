@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://framverse.github.io/framr/404.html</loc>
+  </url>
+  <url>
+    <loc>https://framverse.github.io/framr/articles/chinook_lookup_creation.html</loc>
+  </url>
+  <url>
+    <loc>https://framverse.github.io/framr/articles/chinook_post_processing.html</loc>
+  </url>
+  <url>
+    <loc>https://framverse.github.io/framr/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://framverse.github.io/framr/authors.html</loc>
+  </url>
+  <url>
+    <loc>https://framverse.github.io/framr/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://framverse.github.io/framr/CONTRIBUTING.html</loc>
+  </url>
+  <url>
     <loc>https://framverse.github.io/framr/index.html</loc>
+  </url>
+  <url>
+    <loc>https://framverse.github.io/framr/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://framverse.github.io/framr/LICENSE.html</loc>
   </url>
   <url>
     <loc>https://framverse.github.io/framr/reference/aeq_mort.html</loc>
@@ -10,10 +37,22 @@
     <loc>https://framverse.github.io/framr/reference/ayock_split.html</loc>
   </url>
   <url>
+    <loc>https://framverse.github.io/framr/reference/chin_stock_lu.html</loc>
+  </url>
+  <url>
+    <loc>https://framverse.github.io/framr/reference/index.html</loc>
+  </url>
+  <url>
     <loc>https://framverse.github.io/framr/reference/lu_chin_fishery.html</loc>
   </url>
   <url>
     <loc>https://framverse.github.io/framr/reference/lu_chin_stock.html</loc>
+  </url>
+  <url>
+    <loc>https://framverse.github.io/framr/reference/read_coho_escp.html</loc>
+  </url>
+  <url>
+    <loc>https://framverse.github.io/framr/reference/read_coho_mort.html</loc>
   </url>
   <url>
     <loc>https://framverse.github.io/framr/reference/rep_ocean_opt.html</loc>
@@ -25,9 +64,6 @@
     <loc>https://framverse.github.io/framr/reference/update_2s.html</loc>
   </url>
   <url>
-    <loc>https://framverse.github.io/framr/articles/chinook_lookup_creation.html</loc>
-  </url>
-  <url>
-    <loc>https://framverse.github.io/framr/articles/chinook_post_processing.html</loc>
+    <loc>https://framverse.github.io/framr/SUPPORT.html</loc>
   </url>
 </urlset>

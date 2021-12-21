@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">framr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -64,7 +60,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/FRAMverse/framr/">
+  <a href="https://github.com/FRAMverse/framr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -81,24 +77,24 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="framr" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#framr" class="anchor"></a>framr</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="framr">framr<a class="anchor" aria-label="anchor" href="#framr"></a>
+</h1></div>
 <!-- badges: start -->
 
-<p>The goal of <code>framr</code> is to make it easier and faster to perform common tasks associated with the <a href="https://framverse.github.io/fram_doc/">FRAM model</a>.</p>
+<p>The goal of <code>framr</code> is to make it easier and faster to perform common tasks associated with the <a href="https://framverse.github.io/fram_doc/" class="external-link">FRAM model</a>.</p>
 <p>The package currently consists of high-level convenience functions that typically require both updated R/RStudio installations and various FRAM-related files (e.g., Access project databases, Excel files).</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the development version from <a href="https://github.com/">GitHub</a> with:</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"FRAMverse/framr"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"FRAMverse/framr"</span><span class="op">)</span></code></pre></div>
 <p>Several functions also require the Windows/Office low-level tools in the <code>RDCOMClient</code> package, which (as of 2021-07-19) can be installed with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#worked with 4.1.0 to get to ver 0.95-0</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"BSchamberger/RDCOMClient"</span><span class="op">)</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"BSchamberger/RDCOMClient"</span><span class="op">)</span>
 
 <span class="co">## compiled but fatal errors when running 4.1.0</span>
 <span class="co">#devtools::install_github("omegahat/RDCOMClient")</span>
@@ -106,12 +102,12 @@
 <span class="co">##no longer working?</span>
 <span class="co">#install.packages("RDCOMClient", repos = "http://www.omegahat.net/R")</span></code></pre></div>
 </div>
-<div id="examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
 <p>The function <code>aeq_mort</code> quickly generates AEQ’d mortality values for Chinook.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FRAMverse/framr">framr</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FRAMverse/framr" class="external-link">framr</a></span><span class="op">)</span>
 
 <span class="va">m_hcff</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/aeq_mort.html">aeq_mort</a></span><span class="op">(</span>
   db <span class="op">=</span> <span class="st">"path/to/ChinookFRAM.mdb"</span>,
@@ -128,52 +124,63 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/FRAMverse/framr/">https://​github.com/​FRAMverse/​framr/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/FRAMverse/framr/issues">https://​github.com/​FRAMverse/​framr/​issues</a>
-</li>
+<li><a href="https://github.com/FRAMverse/framr/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/FRAMverse/framr/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Dan Auerbach <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-3655-5206" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html#citation">Citing framr</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://CRAN.R-project.org/package=framr"><img src="https://www.r-pkg.org/badges/version/framr" alt="CRAN status"></a></li>
+<li>Dan Auerbach <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-3655-5206" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+<li><a href="https://CRAN.R-project.org/package=framr" class="external-link"><img src="https://www.r-pkg.org/badges/version/framr" alt="CRAN status"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Dan Auerbach.</p>
+  <p></p>
+<p>Developed by Dan Auerbach.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -181,6 +188,8 @@
 
   
 
+
+  
 
   </body>
 </html>

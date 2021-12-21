@@ -1,10 +1,10 @@
 pandoc: 2.14.0.3
-pkgdown: 1.6.1
+pkgdown: 2.0.1
 pkgdown_sha: ~
 articles:
   chinook_lookup_creation: chinook_lookup_creation.html
   chinook_post_processing: chinook_post_processing.html
-last_built: 2021-12-08T19:33Z
+last_built: 2021-12-21T21:55Z
 urls:
   reference: https://framverse.github.io/framr/reference
   article: https://framverse.github.io/framr/articles

@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">framr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -64,7 +60,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/FRAMverse/framr/">
+  <a href="https://github.com/FRAMverse/framr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -79,151 +75,151 @@
 
       
 
-      </header><script src="chinook_lookup_creation_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chinook lookup creation</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/FRAMverse/framr/blob/master/vignettes/chinook_lookup_creation.Rmd"><code>vignettes/chinook_lookup_creation.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/FRAMverse/framr/blob/HEAD/vignettes/chinook_lookup_creation.Rmd" class="external-link"><code>vignettes/chinook_lookup_creation.Rmd</code></a></small>
       <div class="hidden name"><code>chinook_lookup_creation.Rmd</code></div>
 
     </div>
 
     
     
-<p>This vignette demonstrates the construction of lookup tables that are available as <code><a href="https://framverse.github.io/framr/reference/chin_stock_lu.html">framr::chin_stock_lu</a></code> and <code>framr::chin_fishery_lu</code>.</p>
+<p>This vignette demonstrates the construction of lookup tables that are available as <code>framr::chin_stock_lu</code> and <code>framr::chin_fishery_lu</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FRAMverse/framr">framr</a></span><span class="op">)</span></code></pre></div>
-<div id="lu_chin_stock" class="section level1">
-<h1 class="hasAnchor">
-<a href="#lu_chin_stock" class="anchor"></a>lu_chin_stock</h1>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FRAMverse/framr" class="external-link">framr</a></span><span class="op">)</span></code></pre></div>
+<div class="section level1">
+<h1 id="lu_chin_stock">lu_chin_stock<a class="anchor" aria-label="anchor" href="#lu_chin_stock"></a>
+</h1>
 <p>The following is modified from *chin_valid_2020.Rmd”.</p>
 <p>The “BackwardsFRAM” table includes 116 BKFRAM stocks which are indexed differently than for forward FRAM due to the inclusion of “totals” over marked and unmarked components. However, the project database tables do not currently include a lookup that cross-references the BKFRAM ids to those in the (forward) “Stock” table, so it was necessary to read and clean information in the “FRAMEscapeV2” sheet of an older FRAM stock compilation Excel workbook.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#grab current forward stock IDs and names</span>
-<span class="va">db_con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span>
-  drv <span class="op">=</span> <span class="fu">odbc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/odbc/man/odbc.html">odbc</a></span><span class="op">(</span><span class="op">)</span>,
-  .connection_string <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span>
+<span class="va">db_con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span>
+  drv <span class="op">=</span> <span class="fu">odbc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/odbc/man/odbc.html" class="external-link">odbc</a></span><span class="op">(</span><span class="op">)</span>,
+  .connection_string <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span>
     <span class="st">"Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ="</span>,
     <span class="st">"O:/valid_2020/r711/Valid2020_Round_7.1.1.mdb"</span>, <span class="co">#"O:/code/chin_fram_validation_r62_1992_2016/Valid2018_NewBP_Round6_10.29.2018_Complete_cmpct.mdb",</span>
     <span class="st">";"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="va">db_stock</span> <span class="op">&lt;-</span> <span class="fu">tbl</span><span class="op">(</span><span class="va">db_con</span>, <span class="st">"Stock"</span><span class="op">)</span> |&gt; 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"Chinook"</span><span class="op">)</span> |&gt; 
-  <span class="fu">arrange</span><span class="op">(</span><span class="va">StockID</span><span class="op">)</span> |&gt; 
-  <span class="fu">collect</span><span class="op">(</span><span class="op">)</span>
+<span class="va">db_stock</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">db_con</span>, <span class="st">"Stock"</span><span class="op">)</span> |&gt; 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"Chinook"</span><span class="op">)</span> |&gt; 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">StockID</span><span class="op">)</span> |&gt; 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
   
 <span class="co">#not used: db_bkfram &lt;- tbl(db_con, "BackwardsFRAM") |&gt; collect() |&gt; rename(bkfram_id = StockID)</span>
 
-<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">db_con</span><span class="op">)</span>
+<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html" class="external-link">dbDisconnect</a></span><span class="op">(</span><span class="va">db_con</span><span class="op">)</span>
 
 
 <span class="co">#Note WhiteSp are 65/66, but Valid2018 sheet FRAMEscapeV2 incorrectly has ORMidCoastFalls Stock# colK assigned this rather than 77/78</span>
-<span class="va">framescapev2</span> <span class="op">&lt;-</span> <span class="fu">bind_cols</span><span class="op">(</span>
-  <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="st">"O:/valid_2020/Valid2018/Valid2018_FRAM_StockData_10.30.2018.xlsm"</span>,
-                     range <span class="op">=</span> <span class="st">"FRAMEscapeV2!A2:B117"</span>, col_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"stock_name"</span>, <span class="st">"stock_abbr"</span><span class="op">)</span><span class="op">)</span>,
-  <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="st">"O:/valid_2020/Valid2018/Valid2018_FRAM_StockData_10.30.2018.xlsm"</span>,
-                     range <span class="op">=</span> <span class="st">"FRAMEscapeV2!K2:L117"</span>, col_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"stock_id"</span>, <span class="st">"bkfram_id"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">framescapev2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span>
+  <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_excel</a></span><span class="op">(</span><span class="st">"O:/valid_2020/Valid2018/Valid2018_FRAM_StockData_10.30.2018.xlsm"</span>,
+                     range <span class="op">=</span> <span class="st">"FRAMEscapeV2!A2:B117"</span>, col_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"stock_name"</span>, <span class="st">"stock_abbr"</span><span class="op">)</span><span class="op">)</span>,
+  <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_excel</a></span><span class="op">(</span><span class="st">"O:/valid_2020/Valid2018/Valid2018_FRAM_StockData_10.30.2018.xlsm"</span>,
+                     range <span class="op">=</span> <span class="st">"FRAMEscapeV2!K2:L117"</span>, col_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"stock_id"</span>, <span class="st">"bkfram_id"</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span> |&gt; 
-  <span class="fu">mutate</span><span class="op">(</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
     <span class="co">#fix the ORMidCoast misassignment</span>
-    stock_id <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="va">bkfram_id</span> <span class="op">==</span> <span class="fl">115</span>, <span class="fl">77</span>, <span class="va">stock_id</span><span class="op">)</span>,
-    stock_id <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="va">bkfram_id</span> <span class="op">==</span> <span class="fl">116</span>, <span class="fl">78</span>, <span class="va">stock_id</span><span class="op">)</span>,
+    stock_id <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">bkfram_id</span> <span class="op">==</span> <span class="fl">115</span>, <span class="fl">77</span>, <span class="va">stock_id</span><span class="op">)</span>,
+    stock_id <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">bkfram_id</span> <span class="op">==</span> <span class="fl">116</span>, <span class="fl">78</span>, <span class="va">stock_id</span><span class="op">)</span>,
     <span class="co">#also differs from the "Stock" abbreviation</span>
-    stock_abbr <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="va">bkfram_id</span> <span class="op">==</span> <span class="fl">115</span>, <span class="st">"U-MidORCst"</span>, <span class="va">stock_abbr</span><span class="op">)</span>,
-    stock_abbr <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="va">bkfram_id</span> <span class="op">==</span> <span class="fl">116</span>, <span class="st">"M-MidORCst"</span>, <span class="va">stock_abbr</span><span class="op">)</span>,
+    stock_abbr <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">bkfram_id</span> <span class="op">==</span> <span class="fl">115</span>, <span class="st">"U-MidORCst"</span>, <span class="va">stock_abbr</span><span class="op">)</span>,
+    stock_abbr <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">bkfram_id</span> <span class="op">==</span> <span class="fl">116</span>, <span class="st">"M-MidORCst"</span>, <span class="va">stock_abbr</span><span class="op">)</span>,
     <span class="co">#and the WhiteSp have the wrong strings</span>
-    stock_name <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="va">bkfram_id</span> <span class="op">==</span> <span class="fl">55</span>, <span class="st">"UnMarked White Sp Year"</span>, <span class="va">stock_name</span><span class="op">)</span>,
-    stock_name <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="va">bkfram_id</span> <span class="op">==</span> <span class="fl">56</span>, <span class="st">"Marked White Sp Year"</span>, <span class="va">stock_name</span><span class="op">)</span>,
+    stock_name <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">bkfram_id</span> <span class="op">==</span> <span class="fl">55</span>, <span class="st">"UnMarked White Sp Year"</span>, <span class="va">stock_name</span><span class="op">)</span>,
+    stock_name <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">bkfram_id</span> <span class="op">==</span> <span class="fl">56</span>, <span class="st">"Marked White Sp Year"</span>, <span class="va">stock_name</span><span class="op">)</span>,
     <span class="co">#mapping bkframids to per-stock totals </span>
-    bkfram_id_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">9</span>, <span class="fl">115</span>, by <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>,
+    bkfram_id_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">9</span>, <span class="fl">115</span>, by <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>,
     <span class="co">#cleanup</span>
-    stock_name <span class="op">=</span> <span class="va">stock_name</span> <span class="op">%&gt;%</span> <span class="fu">str_remove</span><span class="op">(</span><span class="st">"-----"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">str_trim</span><span class="op">(</span><span class="op">)</span>,
-    stock_abbr <span class="op">=</span> <span class="va">stock_abbr</span> <span class="op">%&gt;%</span> <span class="fu">str_remove</span><span class="op">(</span><span class="st">"--"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">str_trim</span><span class="op">(</span><span class="op">)</span>,
-    bk_run_def <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span>
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span> <span class="op">~</span> <span class="st">"TRS; includes 7B-D"</span>, <span class="co">#Nook/Sam</span>
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">9</span><span class="op">:</span><span class="fl">17</span> <span class="op">~</span> <span class="st">"TRS; includes Area 8 Net"</span>, <span class="co">#Skag</span>
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">18</span><span class="op">:</span><span class="fl">23</span> <span class="op">~</span> <span class="st">"ETRS; includes FW sport, no FW net"</span>, <span class="co">#Sno</span>
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">24</span><span class="op">:</span><span class="fl">26</span> <span class="op">~</span> <span class="st">"ETRS"</span>, <span class="co">#Stilly FF</span>
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">27</span><span class="op">:</span><span class="fl">29</span> <span class="op">~</span> <span class="st">"TRS; includes 8D catch (excludes 8A)"</span>, <span class="co">#Tulalip FF</span>
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">30</span><span class="op">:</span><span class="fl">32</span> <span class="op">~</span> <span class="st">"TRS; includes 10A, 10E, 11A"</span>, <span class="co">#Mid PS FF</span>
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">33</span><span class="op">:</span><span class="fl">35</span> <span class="op">~</span> <span class="st">"ETRS"</span>, <span class="co">#UW Accel</span>
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">36</span><span class="op">:</span><span class="fl">38</span> <span class="op">~</span> <span class="st">"TRS; includes 13A, 13C, and 13D-K"</span>, <span class="co">#SPS FF</span>
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">39</span><span class="op">:</span><span class="fl">41</span> <span class="op">~</span> <span class="st">"TRS"</span>, <span class="co">#SPS FY</span>
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">42</span><span class="op">:</span><span class="fl">44</span> <span class="op">~</span> <span class="st">"ETRS; includes FW net (FW spt assumed 0)"</span>, <span class="co">#White Spr F</span>
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">45</span><span class="op">:</span><span class="fl">50</span> <span class="op">~</span> <span class="st">"TRS; incl FW net, FW sport, 12H, HC net"</span>, <span class="co">#HC FF/FY</span>
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">51</span><span class="op">:</span><span class="fl">53</span> <span class="op">~</span> <span class="st">"ETRS; includes 6D"</span>, <span class="co">#JDF F</span>
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">54</span><span class="op">:</span><span class="fl">56</span> <span class="op">~</span> <span class="st">"ETRS; includes FW net (FW spt assumed 0)"</span>, <span class="co">#White Spr Y</span>
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">57</span><span class="op">:</span><span class="fl">59</span> <span class="op">~</span> <span class="st">"ETRS; esc only, no FW fishery"</span> <span class="co">#Hoko</span>
+    stock_name <span class="op">=</span> <span class="va">stock_name</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html" class="external-link">str_remove</a></span><span class="op">(</span><span class="st">"-----"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html" class="external-link">str_trim</a></span><span class="op">(</span><span class="op">)</span>,
+    stock_abbr <span class="op">=</span> <span class="va">stock_abbr</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html" class="external-link">str_remove</a></span><span class="op">(</span><span class="st">"--"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html" class="external-link">str_trim</a></span><span class="op">(</span><span class="op">)</span>,
+    bk_run_def <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span>
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span> <span class="op">~</span> <span class="st">"TRS; includes 7B-D"</span>, <span class="co">#Nook/Sam</span>
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">9</span><span class="op">:</span><span class="fl">17</span> <span class="op">~</span> <span class="st">"TRS; includes Area 8 Net"</span>, <span class="co">#Skag</span>
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">18</span><span class="op">:</span><span class="fl">23</span> <span class="op">~</span> <span class="st">"ETRS; includes FW sport, no FW net"</span>, <span class="co">#Sno</span>
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">24</span><span class="op">:</span><span class="fl">26</span> <span class="op">~</span> <span class="st">"ETRS"</span>, <span class="co">#Stilly FF</span>
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">27</span><span class="op">:</span><span class="fl">29</span> <span class="op">~</span> <span class="st">"TRS; includes 8D catch (excludes 8A)"</span>, <span class="co">#Tulalip FF</span>
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">30</span><span class="op">:</span><span class="fl">32</span> <span class="op">~</span> <span class="st">"TRS; includes 10A, 10E, 11A"</span>, <span class="co">#Mid PS FF</span>
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">33</span><span class="op">:</span><span class="fl">35</span> <span class="op">~</span> <span class="st">"ETRS"</span>, <span class="co">#UW Accel</span>
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">36</span><span class="op">:</span><span class="fl">38</span> <span class="op">~</span> <span class="st">"TRS; includes 13A, 13C, and 13D-K"</span>, <span class="co">#SPS FF</span>
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">39</span><span class="op">:</span><span class="fl">41</span> <span class="op">~</span> <span class="st">"TRS"</span>, <span class="co">#SPS FY</span>
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">42</span><span class="op">:</span><span class="fl">44</span> <span class="op">~</span> <span class="st">"ETRS; includes FW net (FW spt assumed 0)"</span>, <span class="co">#White Spr F</span>
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">45</span><span class="op">:</span><span class="fl">50</span> <span class="op">~</span> <span class="st">"TRS; incl FW net, FW sport, 12H, HC net"</span>, <span class="co">#HC FF/FY</span>
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">51</span><span class="op">:</span><span class="fl">53</span> <span class="op">~</span> <span class="st">"ETRS; includes 6D"</span>, <span class="co">#JDF F</span>
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">54</span><span class="op">:</span><span class="fl">56</span> <span class="op">~</span> <span class="st">"ETRS; includes FW net (FW spt assumed 0)"</span>, <span class="co">#White Spr Y</span>
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">57</span><span class="op">:</span><span class="fl">59</span> <span class="op">~</span> <span class="st">"ETRS; esc only, no FW fishery"</span> <span class="co">#Hoko</span>
       <span class="op">)</span>,
     <span class="co">#matching the levels in tamm_regions</span>
-    region <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span>
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span> <span class="op">~</span> <span class="st">"NookSam"</span>,
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">9</span><span class="op">:</span><span class="fl">17</span> <span class="op">~</span> <span class="st">"Skagit"</span>,
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">18</span><span class="op">:</span><span class="fl">29</span> <span class="op">~</span> <span class="st">"StSno"</span>,
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30</span><span class="op">:</span><span class="fl">35</span>, <span class="fl">42</span><span class="op">:</span><span class="fl">44</span>, <span class="fl">54</span><span class="op">:</span><span class="fl">56</span><span class="op">)</span> <span class="op">~</span> <span class="st">"MPS"</span>,
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">36</span><span class="op">:</span><span class="fl">41</span> <span class="op">~</span> <span class="st">"SPS"</span>,
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fl">45</span><span class="op">:</span><span class="fl">50</span> <span class="op">~</span> <span class="st">"HC"</span>,
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">51</span><span class="op">:</span><span class="fl">53</span>, <span class="fl">57</span><span class="op">:</span><span class="fl">59</span><span class="op">)</span> <span class="op">~</span> <span class="st">"JDF"</span>,
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">60</span><span class="op">:</span><span class="fl">86</span>, <span class="fl">102</span><span class="op">:</span><span class="fl">104</span><span class="op">)</span> <span class="op">~</span> <span class="st">"ColR"</span>,
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">87</span><span class="op">:</span><span class="fl">89</span>, <span class="fl">105</span><span class="op">:</span><span class="fl">116</span><span class="op">)</span> <span class="op">~</span> <span class="st">"WA_NCoast_OR_CA"</span>,
-      <span class="va">bkfram_id</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">90</span><span class="op">:</span><span class="fl">101</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Canada"</span>
+    region <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span>
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span> <span class="op">~</span> <span class="st">"NookSam"</span>,
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">9</span><span class="op">:</span><span class="fl">17</span> <span class="op">~</span> <span class="st">"Skagit"</span>,
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">18</span><span class="op">:</span><span class="fl">29</span> <span class="op">~</span> <span class="st">"StSno"</span>,
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span><span class="op">:</span><span class="fl">35</span>, <span class="fl">42</span><span class="op">:</span><span class="fl">44</span>, <span class="fl">54</span><span class="op">:</span><span class="fl">56</span><span class="op">)</span> <span class="op">~</span> <span class="st">"MPS"</span>,
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">36</span><span class="op">:</span><span class="fl">41</span> <span class="op">~</span> <span class="st">"SPS"</span>,
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">45</span><span class="op">:</span><span class="fl">50</span> <span class="op">~</span> <span class="st">"HC"</span>,
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">51</span><span class="op">:</span><span class="fl">53</span>, <span class="fl">57</span><span class="op">:</span><span class="fl">59</span><span class="op">)</span> <span class="op">~</span> <span class="st">"JDF"</span>,
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">60</span><span class="op">:</span><span class="fl">86</span>, <span class="fl">102</span><span class="op">:</span><span class="fl">104</span><span class="op">)</span> <span class="op">~</span> <span class="st">"ColR"</span>,
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">87</span><span class="op">:</span><span class="fl">89</span>, <span class="fl">105</span><span class="op">:</span><span class="fl">116</span><span class="op">)</span> <span class="op">~</span> <span class="st">"WA_NCoast_OR_CA"</span>,
+      <span class="va">bkfram_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">90</span><span class="op">:</span><span class="fl">101</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Canada"</span>
       <span class="op">)</span>
   <span class="op">)</span>
 
-<span class="va">lu_chin_stock</span> <span class="op">&lt;-</span> <span class="fu">full_join</span><span class="op">(</span>
+<span class="va">lu_chin_stock</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">full_join</a></span><span class="op">(</span>
   <span class="va">db_stock</span>,
-  <span class="va">framescapev2</span> |&gt; <span class="fu">select</span><span class="op">(</span>StockID <span class="op">=</span> <span class="va">stock_id</span>, <span class="va">bkfram_id</span><span class="op">:</span><span class="va">region</span><span class="op">)</span>,
+  <span class="va">framescapev2</span> |&gt; <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span>StockID <span class="op">=</span> <span class="va">stock_id</span>, <span class="va">bkfram_id</span><span class="op">:</span><span class="va">region</span><span class="op">)</span>,
   by <span class="op">=</span> <span class="st">"StockID"</span>
   <span class="op">)</span> |&gt; 
-  <span class="fu">arrange</span><span class="op">(</span><span class="va">bkfram_id</span><span class="op">)</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">bkfram_id</span><span class="op">)</span>
 
 <span class="co">#modified existing/prior description in "R/data-chin_stock_lu.R"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span><span class="va">lu_chin_stock</span>, file <span class="op">=</span> <span class="st">"data/lu_chin_stock.rda"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">lu_chin_stock</span>, file <span class="op">=</span> <span class="st">"data/lu_chin_stock.rda"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="lu_chin_fishery" class="section level1">
-<h1 class="hasAnchor">
-<a href="#lu_chin_fishery" class="anchor"></a>lu_chin_fishery</h1>
+<div class="section level1">
+<h1 id="lu_chin_fishery">lu_chin_fishery<a class="anchor" aria-label="anchor" href="#lu_chin_fishery"></a>
+</h1>
 <p>The following reads a <code>Fishery</code> table from a current Chinook project database and appends several fields of metadata and catch database identifiers. Note that additional TAMM fisheries are required for a complete depiction of impacts (i.e., including terminal and freshwater mortality).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">db_con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span>
-  drv <span class="op">=</span> <span class="fu">odbc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/odbc/man/odbc.html">odbc</a></span><span class="op">(</span><span class="op">)</span>,
-  .connection_string <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">db_con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span>
+  drv <span class="op">=</span> <span class="fu">odbc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/odbc/man/odbc.html" class="external-link">odbc</a></span><span class="op">(</span><span class="op">)</span>,
+  .connection_string <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span>
     <span class="st">"Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ="</span>,
     <span class="st">"O:/valid_2020/r711/Valid2020_Round_7.1.1.mdb"</span>,
     <span class="st">";"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="va">db_fishery</span> <span class="op">&lt;-</span> <span class="fu">tbl</span><span class="op">(</span><span class="va">db_con</span>, <span class="st">"Fishery"</span><span class="op">)</span> |&gt; 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"CHINOOK"</span><span class="op">)</span> |&gt;  
-  <span class="fu">arrange</span><span class="op">(</span><span class="va">FisheryID</span><span class="op">)</span> |&gt; 
-  <span class="fu">collect</span><span class="op">(</span><span class="op">)</span>
+<span class="va">db_fishery</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">db_con</span>, <span class="st">"Fishery"</span><span class="op">)</span> |&gt; 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"CHINOOK"</span><span class="op">)</span> |&gt;  
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">FisheryID</span><span class="op">)</span> |&gt; 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
   
-<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">db_con</span><span class="op">)</span>
+<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html" class="external-link">dbDisconnect</a></span><span class="op">(</span><span class="va">db_con</span><span class="op">)</span>
 
 <span class="va">lu_chin_fishery</span> <span class="op">&lt;-</span> <span class="va">db_fishery</span> |&gt; 
-    <span class="fu">mutate</span><span class="op">(</span>
-      catch_source <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
+      catch_source <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span>
         <span class="va">FisheryID</span> <span class="op">&lt;</span> <span class="fl">16</span> <span class="op">~</span> <span class="st">"PSC/CTC"</span>,
-        <span class="va">FisheryID</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">16</span><span class="op">:</span><span class="fl">18</span>, <span class="fl">20</span><span class="op">:</span><span class="fl">22</span>, <span class="fl">26</span><span class="op">:</span><span class="fl">27</span>, <span class="fl">30</span><span class="op">:</span><span class="fl">35</span><span class="op">)</span> <span class="op">~</span> <span class="st">"PFMC/STT"</span>,
-        <span class="va">FisheryID</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">36</span>,<span class="fl">42</span>,<span class="fl">45</span>,<span class="fl">48</span>,<span class="fl">53</span>,<span class="fl">54</span>,<span class="fl">56</span>,<span class="fl">57</span>,<span class="fl">60</span>,<span class="fl">62</span>,<span class="fl">64</span>,<span class="fl">67</span><span class="op">)</span> <span class="op">~</span> <span class="st">"CRC/PSSP"</span>,
-        <span class="va">FisheryID</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">23</span>,<span class="fl">24</span>,<span class="fl">25</span>, <span class="fl">37</span><span class="op">:</span><span class="fl">41</span>, <span class="fl">43</span><span class="op">:</span><span class="fl">44</span>, <span class="fl">46</span>,<span class="fl">47</span>, <span class="fl">49</span><span class="op">:</span><span class="fl">52</span>, <span class="fl">55</span>, <span class="fl">58</span>,<span class="fl">59</span>, <span class="fl">61</span>, <span class="fl">63</span>, <span class="fl">65</span>,<span class="fl">66</span>, <span class="fl">68</span><span class="op">:</span><span class="fl">71</span><span class="op">)</span> <span class="op">~</span> <span class="st">"FishTicket/TOCAS"</span>
+        <span class="va">FisheryID</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">16</span><span class="op">:</span><span class="fl">18</span>, <span class="fl">20</span><span class="op">:</span><span class="fl">22</span>, <span class="fl">26</span><span class="op">:</span><span class="fl">27</span>, <span class="fl">30</span><span class="op">:</span><span class="fl">35</span><span class="op">)</span> <span class="op">~</span> <span class="st">"PFMC/STT"</span>,
+        <span class="va">FisheryID</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">36</span>,<span class="fl">42</span>,<span class="fl">45</span>,<span class="fl">48</span>,<span class="fl">53</span>,<span class="fl">54</span>,<span class="fl">56</span>,<span class="fl">57</span>,<span class="fl">60</span>,<span class="fl">62</span>,<span class="fl">64</span>,<span class="fl">67</span><span class="op">)</span> <span class="op">~</span> <span class="st">"CRC/PSSP"</span>,
+        <span class="va">FisheryID</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">23</span>,<span class="fl">24</span>,<span class="fl">25</span>, <span class="fl">37</span><span class="op">:</span><span class="fl">41</span>, <span class="fl">43</span><span class="op">:</span><span class="fl">44</span>, <span class="fl">46</span>,<span class="fl">47</span>, <span class="fl">49</span><span class="op">:</span><span class="fl">52</span>, <span class="fl">55</span>, <span class="fl">58</span>,<span class="fl">59</span>, <span class="fl">61</span>, <span class="fl">63</span>, <span class="fl">65</span>,<span class="fl">66</span>, <span class="fl">68</span><span class="op">:</span><span class="fl">71</span><span class="op">)</span> <span class="op">~</span> <span class="st">"FishTicket/TOCAS"</span>
       <span class="op">)</span>,
-      region <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span>
-        <span class="va">FisheryID</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">37</span><span class="op">:</span><span class="fl">40</span><span class="op">)</span>  <span class="op">~</span> <span class="st">"NookSam"</span>,
-        <span class="va">FisheryID</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">46</span>, <span class="fl">47</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Skagit"</span>,
-        <span class="va">FisheryID</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">49</span><span class="op">:</span><span class="fl">52</span><span class="op">)</span> <span class="op">~</span> <span class="st">"StSno"</span>,
-        <span class="va">FisheryID</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">58</span>, <span class="fl">59</span>, <span class="fl">61</span>, <span class="fl">63</span><span class="op">)</span> <span class="op">~</span> <span class="st">"MPS"</span>,
-        <span class="va">FisheryID</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">68</span>, <span class="fl">69</span>, <span class="fl">70</span>, <span class="fl">71</span><span class="op">)</span> <span class="op">~</span> <span class="st">"SPS"</span>,
-        <span class="va">FisheryID</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">65</span>, <span class="fl">66</span><span class="op">)</span> <span class="op">~</span> <span class="st">"HC"</span>,
-        <span class="va">FisheryID</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">17</span>, <span class="fl">41</span>, <span class="fl">43</span>, <span class="fl">44</span>, <span class="fl">55</span><span class="op">)</span> <span class="op">~</span> <span class="st">"JDF"</span>
+      region <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span>
+        <span class="va">FisheryID</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">37</span><span class="op">:</span><span class="fl">40</span><span class="op">)</span>  <span class="op">~</span> <span class="st">"NookSam"</span>,
+        <span class="va">FisheryID</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">46</span>, <span class="fl">47</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Skagit"</span>,
+        <span class="va">FisheryID</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">49</span><span class="op">:</span><span class="fl">52</span><span class="op">)</span> <span class="op">~</span> <span class="st">"StSno"</span>,
+        <span class="va">FisheryID</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">58</span>, <span class="fl">59</span>, <span class="fl">61</span>, <span class="fl">63</span><span class="op">)</span> <span class="op">~</span> <span class="st">"MPS"</span>,
+        <span class="va">FisheryID</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">68</span>, <span class="fl">69</span>, <span class="fl">70</span>, <span class="fl">71</span><span class="op">)</span> <span class="op">~</span> <span class="st">"SPS"</span>,
+        <span class="va">FisheryID</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">65</span>, <span class="fl">66</span><span class="op">)</span> <span class="op">~</span> <span class="st">"HC"</span>,
+        <span class="va">FisheryID</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">17</span>, <span class="fl">41</span>, <span class="fl">43</span>, <span class="fl">44</span>, <span class="fl">55</span><span class="op">)</span> <span class="op">~</span> <span class="st">"JDF"</span>
         <span class="co"># ~ "ColR",</span>
         <span class="co"># ~ "WA_NCoast_OR_CA",</span>
         <span class="co"># ~ "Canada"</span>
       <span class="op">)</span>,
       <span class="co">#CRC identifiers for marine recreational</span>
-      areacode <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span>
+      areacode <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span>
         <span class="co">#FisheryID == 18 ~ "3,4", #taken from PFMC table</span>
         <span class="co">#FisheryID == 22 ~ "2", #taken from PFMC table</span>
         <span class="co">#FisheryID == 27 ~ "1", #taken from PFMC table</span>
@@ -243,7 +239,7 @@
       <span class="co">#WDFW FishTix identifiers for marine commercial</span>
       <span class="co">#Note that treaty catches have recently come directly from TOCAS queries by O Miler</span>
       <span class="co">#and that STT fisheries have come from PFMC STT rather than direct query of FT</span>
-      CatchAreaCode <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span>
+      CatchAreaCode <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span>
         <span class="va">FisheryID</span> <span class="op">==</span> <span class="fl">16</span> <span class="op">~</span> <span class="st">"03,04,04B"</span>, <span class="co">#as backup, precedence to STT tables; Area 3:4:4B Troll</span>
         <span class="va">FisheryID</span> <span class="op">==</span> <span class="fl">17</span> <span class="op">~</span> <span class="st">"03,04,04B"</span>, <span class="co">#as backup, precedence to STT tables; Area 3:4:4B Troll</span>
         <span class="co">#FisheryID == 19 ~ "04A", #No Wash. Coastal Net,</span>
@@ -278,8 +274,8 @@
         <span class="va">FisheryID</span> <span class="op">==</span> <span class="fl">70</span> <span class="op">~</span> <span class="st">"13A"</span>, <span class="co">#Area 13A Net</span>
         <span class="va">FisheryID</span> <span class="op">==</span> <span class="fl">71</span> <span class="op">~</span> <span class="st">"13A"</span> <span class="co">#Area 13A Net</span>
       <span class="op">)</span>,
-      FisherTypeDescription <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"^Tr"</span>, <span class="va">FisheryName</span><span class="op">)</span>, <span class="st">"Treaty"</span>, <span class="st">"Non-Treaty"</span><span class="op">)</span>,
-      gear <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"Net"</span>, <span class="va">FisheryTitle</span><span class="op">)</span>, <span class="st">"net"</span>, <span class="st">"line"</span><span class="op">)</span>
+      FisherTypeDescription <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"^Tr"</span>, <span class="va">FisheryName</span><span class="op">)</span>, <span class="st">"Treaty"</span>, <span class="st">"Non-Treaty"</span><span class="op">)</span>,
+      gear <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"Net"</span>, <span class="va">FisheryTitle</span><span class="op">)</span>, <span class="st">"net"</span>, <span class="st">"line"</span><span class="op">)</span>
     <span class="op">)</span>
 
 
@@ -299,11 +295,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Dan Auerbach.</p>
+  <p></p>
+<p>Developed by Dan Auerbach.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -311,6 +309,8 @@
 
   
 
+
+  
 
   </body>
 </html>
