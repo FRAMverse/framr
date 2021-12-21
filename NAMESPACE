@@ -2,6 +2,8 @@
 
 export(aeq_mort)
 export(ayock_split)
+export(read_coho_escp)
+export(read_coho_mort)
 export(rep_ocean_opt)
 export(sps)
 export(update_2s)
