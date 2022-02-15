@@ -16,8 +16,7 @@ read_coho_mort(db, runs = NULL, stocks = NULL, fisheries = NULL)
 \item{fisheries}{numeric, FisheryID(s) as ID or ID:ID, default NULL for all fisheries}
 }
 \value{
-a tibble of AEQ'd mortality, possibly aggregated over ages to
-the per run-stock-fishery-timestep total
+a tibble of mortality by run-stock-fishery-timestep
 }
 \description{
 Extract mortality values from Coho FRAM database
