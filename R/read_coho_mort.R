@@ -6,8 +6,7 @@
 #' @param stocks numeric, StockID(s) as ID or ID:ID, default NULL for all stocks
 #' @param fisheries numeric, FisheryID(s) as ID or ID:ID, default NULL for all fisheries
 #'
-#' @return a tibble of AEQ'd mortality, possibly aggregated over ages to
-#'  the per run-stock-fishery-timestep total
+#' @return a tibble of mortality by run-stock-fishery-timestep
 #'
 #' @examples
 #' \dontrun{
