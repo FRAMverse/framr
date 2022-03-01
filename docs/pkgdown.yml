@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   chinook_lookup_creation: chinook_lookup_creation.html
   chinook_post_processing: chinook_post_processing.html
-last_built: 2022-02-15T00:14Z
+last_built: 2022-03-01T01:21Z
 urls:
   reference: https://framverse.github.io/framr/reference
   article: https://framverse.github.io/framr/articles
