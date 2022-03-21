@@ -43,7 +43,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -82,8 +82,11 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of <code>framr</code> is to make it easier and faster to perform common tasks associated with the <a href="https://framverse.github.io/fram_doc/" class="external-link">FRAM model</a>.</p>
-<p>The package currently consists of high-level convenience functions that typically require both updated R/RStudio installations and various FRAM-related files (e.g., Access project databases, Excel files).</p>
+<p>The goal of <code>framr</code> is to make it easier and faster to
+perform common tasks associated with the <a href="https://framverse.github.io/fram_doc/" class="external-link">FRAM model</a>.</p>
+<p>The package currently consists of high-level convenience functions
+that typically require both updated R/RStudio installations and various
+FRAM-related files (e.g., Access project databases, Excel files).</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -91,7 +94,9 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"FRAMverse/framr"</span><span class="op">)</span></code></pre></div>
-<p>Several functions also require the Windows/Office low-level tools in the <code>RDCOMClient</code> package, which (as of 2021-07-19) can be installed with:</p>
+<p>Several functions also require the Windows/Office low-level tools in
+the <code>RDCOMClient</code> package, which (as of 2021-07-19) can be
+installed with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#worked with 4.1.0 to get to ver 0.95-0</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"BSchamberger/RDCOMClient"</span><span class="op">)</span>
@@ -105,7 +110,8 @@
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
-<p>The function <code>aeq_mort</code> quickly generates AEQ’d mortality values for Chinook.</p>
+<p>The function <code>aeq_mort</code> quickly generates AEQ’d mortality
+values for Chinook.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FRAMverse/framr" class="external-link">framr</a></span><span class="op">)</span>
 
@@ -116,8 +122,10 @@
   drop_t1 <span class="op">=</span> <span class="cn">T</span>, <span class="co">#defaults to TRUE for "fishing year" t2:t4</span>
   sum_ages <span class="op">=</span> <span class="cn">T</span> <span class="co">#defaults to FALSE for disaggregated returned object</span>
   <span class="op">)</span></code></pre></div>
-<p>The functions <code>ayock_split</code> and <code>sps</code> perform Chinook post-processing tasks, altering TAMM file values.</p>
-<p>The functions <code>rep_ocean_opt</code> and <code>update_2s</code> perform Chinook database manipulation tasks.</p>
+<p>The functions <code>ayock_split</code> and <code>sps</code> perform
+Chinook post-processing tasks, altering TAMM file values.</p>
+<p>The functions <code>rep_ocean_opt</code> and <code>update_2s</code>
+perform Chinook database manipulation tasks.</p>
 </div>
 </div>
   </div>
@@ -180,7 +188,8 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer>

@@ -43,7 +43,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -88,15 +88,23 @@
 
     
     
-<p>This vignette demonstrates the construction of lookup tables that are available as <code>framr::chin_stock_lu</code> and <code>framr::chin_fishery_lu</code>.</p>
+<p>This vignette demonstrates the construction of lookup tables that are
+available as <code>framr::chin_stock_lu</code> and
+<code>framr::chin_fishery_lu</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FRAMverse/framr" class="external-link">framr</a></span><span class="op">)</span></code></pre></div>
-<div class="section level1">
-<h1 id="lu_chin_stock">lu_chin_stock<a class="anchor" aria-label="anchor" href="#lu_chin_stock"></a>
-</h1>
+<div class="section level2">
+<h2 id="lu_chin_stock">lu_chin_stock<a class="anchor" aria-label="anchor" href="#lu_chin_stock"></a>
+</h2>
 <p>The following is modified from *chin_valid_2020.Rmd”.</p>
-<p>The “BackwardsFRAM” table includes 116 BKFRAM stocks which are indexed differently than for forward FRAM due to the inclusion of “totals” over marked and unmarked components. However, the project database tables do not currently include a lookup that cross-references the BKFRAM ids to those in the (forward) “Stock” table, so it was necessary to read and clean information in the “FRAMEscapeV2” sheet of an older FRAM stock compilation Excel workbook.</p>
+<p>The “BackwardsFRAM” table includes 116 BKFRAM stocks which are
+indexed differently than for forward FRAM due to the inclusion of
+“totals” over marked and unmarked components. However, the project
+database tables do not currently include a lookup that cross-references
+the BKFRAM ids to those in the (forward) “Stock” table, so it was
+necessary to read and clean information in the “FRAMEscapeV2” sheet of
+an older FRAM stock compilation Excel workbook.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#grab current forward stock IDs and names</span>
 <span class="va">db_con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span>
@@ -179,10 +187,14 @@
 <span class="co">#modified existing/prior description in "R/data-chin_stock_lu.R"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">lu_chin_stock</span>, file <span class="op">=</span> <span class="st">"data/lu_chin_stock.rda"</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level1">
-<h1 id="lu_chin_fishery">lu_chin_fishery<a class="anchor" aria-label="anchor" href="#lu_chin_fishery"></a>
-</h1>
-<p>The following reads a <code>Fishery</code> table from a current Chinook project database and appends several fields of metadata and catch database identifiers. Note that additional TAMM fisheries are required for a complete depiction of impacts (i.e., including terminal and freshwater mortality).</p>
+<div class="section level2">
+<h2 id="lu_chin_fishery">lu_chin_fishery<a class="anchor" aria-label="anchor" href="#lu_chin_fishery"></a>
+</h2>
+<p>The following reads a <code>Fishery</code> table from a current
+Chinook project database and appends several fields of metadata and
+catch database identifiers. Note that additional TAMM fisheries are
+required for a complete depiction of impacts (i.e., including terminal
+and freshwater mortality).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">db_con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span>
   drv <span class="op">=</span> <span class="fu">odbc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/odbc/man/odbc.html" class="external-link">odbc</a></span><span class="op">(</span><span class="op">)</span>,
@@ -301,7 +313,8 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer>

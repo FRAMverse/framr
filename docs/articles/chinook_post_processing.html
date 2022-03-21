@@ -43,7 +43,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -88,40 +88,67 @@
 
     
     
-<p>The <code>framr</code> package expedites Chinook FRAM post-processing tasks with <code><a href="../reference/sps.html">framr::sps</a></code> and <code><a href="../reference/ayock_split.html">framr::ayock_split</a></code>.</p>
-<p>Assuming the package and dependencies are installed (see <a href="https://framverse.github.io/framr/">Installation</a>), then begin by loading the functions.</p>
+<p>The <code>framr</code> package expedites Chinook FRAM post-processing
+tasks with <code><a href="../reference/sps.html">framr::sps</a></code> and
+<code><a href="../reference/ayock_split.html">framr::ayock_split</a></code>.</p>
+<p>Assuming the package and dependencies are installed (see <a href="https://framverse.github.io/framr/">Installation</a>), then begin
+by loading the functions.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/FRAMverse/framr" class="external-link">framr</a></span><span class="op">)</span></code></pre></div>
-<div class="section level1">
-<h1 id="sps">
+<div class="section level2">
+<h2 id="sps">
 <code>sps</code><a class="anchor" aria-label="anchor" href="#sps"></a>
-</h1>
-<p>The <code><a href="../reference/sps.html">sps()</a></code> function uses R and the <code>RDCOMClient</code> library to manipulate existing Excel files - no actual calculations are performed.</p>
-<p>It is important to note that the TAMM(s) should already have the appropriate “starting block” values on the <em>SPS Abundance Iterations</em> sheet.</p>
-<p>The function expects a single argument consisting of a file path or character vector of paths for the TAMMs in which SPS iterations are to be performed.</p>
-<p>It is preferable to provide full file paths to reduce confusion, though relative paths <em>could</em> work if the directory with the target TAMMs is the current working directory.</p>
-<p>Matching a regular expression within a target directory is a convenient way to build the input file paths for multiple TAMMs.</p>
-<p>Running the function should result in Excel opening and “flickering” through the desired files; nothing is returned on completion.</p>
+</h2>
+<p>The <code><a href="../reference/sps.html">sps()</a></code> function uses R and the
+<code>RDCOMClient</code> library to manipulate existing Excel files - no
+actual calculations are performed.</p>
+<p>It is important to note that the TAMM(s) should already have the
+appropriate “starting block” values on the <em>SPS Abundance
+Iterations</em> sheet.</p>
+<p>The function expects a single argument consisting of a file path or
+character vector of paths for the TAMMs in which SPS iterations are to
+be performed.</p>
+<p>It is preferable to provide full file paths to reduce confusion,
+though relative paths <em>could</em> work if the directory with the
+target TAMMs is the current working directory.</p>
+<p>Matching a regular expression within a target directory is a
+convenient way to build the input file paths for multiple TAMMs.</p>
+<p>Running the function should result in Excel opening and “flickering”
+through the desired files; nothing is returned on completion.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dir_tamms</span> <span class="op">&lt;-</span> <span class="st">"path/to/tamms/of/interest"</span>
 
 <span class="va">tamms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">dir_tamms</span>, pattern <span class="op">=</span> <span class="st">"year_or_some_file_name_REGEX.xlsx"</span>, full.names <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/sps.html">sps</a></span><span class="op">(</span>tamm_file_paths <span class="op">=</span> <span class="va">tamms</span><span class="op">)</span></code></pre></div>
-<p>While the <code>RDCOMClient package</code> is maintained, it will be inefficient to replicate the Chinook TAMM sheet “SPS Abundance Iterations” functionality in R, particularly if TAMM2FRAM progresses.</p>
+<p>While the <code>RDCOMClient package</code> is maintained, it will be
+inefficient to replicate the Chinook TAMM sheet “SPS Abundance
+Iterations” functionality in R, particularly if TAMM2FRAM
+progresses.</p>
 </div>
-<div class="section level1">
-<h1 id="ayock_split">
+<div class="section level2">
+<h2 id="ayock_split">
 <code>ayock_split</code><a class="anchor" aria-label="anchor" href="#ayock_split"></a>
-</h1>
-<p>In addition to TAMM file paths, the <code><a href="../reference/ayock_split.html">ayock_split()</a></code> function to perform “North/South Ayock Splits” requires a <em>Mortality</em> table from a Chinook FRAM project database. This path can be declared globally and then passed into the function.</p>
-<p>The function extracts and summarizes the Chinook FRAM timestep 3 AEQ mortalities of HC FF in NT A12 sport, moving the NS and MSF components into the appropriate TAMM sheets &amp; cells.</p>
+</h2>
+<p>In addition to TAMM file paths, the <code><a href="../reference/ayock_split.html">ayock_split()</a></code>
+function to perform “North/South Ayock Splits” requires a
+<em>Mortality</em> table from a Chinook FRAM project database. This path
+can be declared globally and then passed into the function.</p>
+<p>The function extracts and summarizes the Chinook FRAM timestep 3 AEQ
+mortalities of HC FF in NT A12 sport, moving the NS and MSF components
+into the appropriate TAMM sheets &amp; cells.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">db</span> <span class="op">&lt;-</span> <span class="st">"O:/chin_2021/Chinook_NOF_2021_FRAM_Database.mdb"</span>
 
 <span class="fu"><a href="../reference/ayock_split.html">ayock_split</a></span><span class="op">(</span>db <span class="op">=</span> <span class="va">db</span>, tamm_file_paths <span class="op">=</span> <span class="va">tamms</span><span class="op">)</span></code></pre></div>
-<p>The function reads the <em>RunName</em> string(s) written by FRAM into the “TAMX!B2” cell on the files of interest, and then uses these values to get the associated <em>RunID</em> values. These are used to filter the <em>Mortality</em> table (in addition to hard-coded stock, fishery and timestep conditions).</p>
-<p>Again, successful completion does not return anything to the R session, although a tibble of metadata and values is printed to the console.</p>
+<p>The function reads the <em>RunName</em> string(s) written by FRAM
+into the “TAMX!B2” cell on the files of interest, and then uses these
+values to get the associated <em>RunID</em> values. These are used to
+filter the <em>Mortality</em> table (in addition to hard-coded stock,
+fishery and timestep conditions).</p>
+<p>Again, successful completion does not return anything to the R
+session, although a tibble of metadata and values is printed to the
+console.</p>
 </div>
   </div>
 
@@ -142,7 +169,8 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer>
