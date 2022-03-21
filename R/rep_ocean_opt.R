@@ -7,6 +7,8 @@
 #' in a project mdb with many runs. Also left as single pairwise RunIDs
 #' and fixed FisheryIDs rather than passing as args.
 #'
+#' Script updated to include passing data from non-retention table.
+#'
 #' @param db string, file path to database
 #' @param run_from numeric, "donor" run
 #' @param run_to numeric, "recipient" run
@@ -49,16 +51,55 @@ rep_ocean_opt <- function(db, run_from, run_to){
     dplyr::left_join(
       dplyr::select(fs_from, -PrimaryKey, -RunID),
       by = c("FisheryID", "TimeStep")
-      )
+    )
 
   #delete target run rows
   DBI::dbGetQuery(db_con,
                   paste0("DELETE FisheryScalers.* FROM FisheryScalers WHERE RunID = ", run_to,
-                         " AND ( (FisheryID In (16,18,20,21,22,26,27,30,31,32,33,34,35)) OR (FisheryID = 17 AND (TimeStep In (2,3))));")
+                         " AND ( (FisheryID In (",
+                         paste0(fisheries, collapse = ","),
+                         ")) OR (FisheryID = 17 AND (TimeStep In (2,3))));")
   )
 
   #add back donor rows and close connection
   DBI::dbAppendTable(db_con, name = "FisheryScalers", value = fs_to, batch_rows = 1)
+
+  #now do the same for NonRetention
+  #left non-functionalized in case of table idiosyncrasies
+
+  nr_from <- dplyr::tbl(db_con, "NonRetention") |>
+    dplyr::filter(
+      RunID == run_from,
+      FisheryID %in% fisheries | (FisheryID == 17 & dplyr::between(TimeStep, 2, 3))
+    ) |>
+    dplyr::collect()
+  print(paste0("Read ", nrow(nr_from), " NonRetention rows from RunID ", run_from))
+
+  #get recipient rows PrimaryKey
+  nr_to <- dplyr::tbl(db_con, "NonRetention") |>
+    dplyr::filter(
+      RunID == run_to,
+      FisheryID %in% fisheries | (FisheryID == 17 & dplyr::between(TimeStep, 2, 3))
+    ) |>
+    dplyr::select(PrimaryKey, RunID, FisheryID, TimeStep) |>
+    dplyr::collect() |>
+    dplyr::left_join(
+      dplyr::select(nr_from, -PrimaryKey, -RunID),
+      by = c("FisheryID", "TimeStep")
+    )
+
+  #delete target run rows
+  DBI::dbGetQuery(db_con,
+                  paste0("DELETE NonRetention.* FROM NonRetention WHERE RunID = ", run_to,
+                         " AND ( (FisheryID In (",
+                         paste0(fisheries, collapse = ","),
+                         ")) OR (FisheryID = 17 AND (TimeStep In (2,3))));"
+                  )
+  )
+
+  #add back donor rows and close connection
+  DBI::dbAppendTable(db_con, name = "NonRetention", value = nr_to, batch_rows = 1)
+
   DBI::dbDisconnect(db_con)
 
 }
