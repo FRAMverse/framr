@@ -2,6 +2,7 @@
 
 export(aeq_mort)
 export(ayock_split)
+export(load_coho_fish_sclr)
 export(read_coho_cohort)
 export(read_coho_escp)
 export(read_coho_fish_sclr)
