@@ -1,7 +1,6 @@
 #' Lookup of Coho FRAM sport fisheries
 #'
-#' Maps WDFW Catch Record Card catch areas to Coho FRAM
-#' FisheryIDs.
+#' Maps WDFW Catch Record Card catch areas to Coho FRAM FisheryIDs.
 #'
 #' @docType data
 #'

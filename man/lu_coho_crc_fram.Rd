@@ -22,7 +22,6 @@ save(lu_coho_crc_fram, file = 'data/lu_coho_crc_fram.rda')
 lu_coho_crc_fram
 }
 \description{
-Maps WDFW Catch Record Card catch areas to Coho FRAM
-FisheryIDs.
+Maps WDFW Catch Record Card catch areas to Coho FRAM FisheryIDs.
 }
 \keyword{datasets}
